@@ -25,7 +25,13 @@ SECRET_KEY = 'django-insecure-$zp7_pyrbh@m!#=2q+(_khxa1&b(%z^2wvjvpg$3!n@t@7**0t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+import os
+
+TEMPLATE_DIR=os.path.join(BASE_DIR,'template')
+
+STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
 
 
 # Application definition
@@ -38,10 +44,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
+    'whitenoise',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -125,5 +133,5 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS=[
-    BASE_DIR/'static'
-]
+    BASE_DIR/'static']
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
